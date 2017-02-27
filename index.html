@@ -37,17 +37,16 @@
 
     let direction = true;
 
-    function draw(e) {
+    function draw(event) {
         if (!isDrawing) return;
-        console.log(e);
         ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
         ctx.beginPath();
         // start from
         ctx.moveTo(lastX, lastY);
         // go to
-        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.lineTo(event.offsetX, event.offsetY);
         ctx.stroke();
-        [lastX, lastY] = [e.offsetX, e.offsetY];
+        [lastX, lastY] = [event.offsetX, event.offsetY];
 
         hue++;
         if (hue >= 360) {
@@ -62,23 +61,13 @@
         } else {
             ctx.lineWidth--;
         }
-
     }
+
     add_event_listner('mousedown', function(event) {
         isDrawing = true;
         lastX = event.offsetX;
         lastY = event.offsetY
         });
-
-    /* This function causes a bug where the cursor wont stop drawing onto the canvas...
-    function is_drawing_true_or_false(boolean) {
-        if (boolean === true) {
-            return isDrawing = true;
-        } else if (boolean === false){
-            return isDrawing = false;
-        }
-    }
-    */
 
     add_event_listner('mousemove', draw);
     add_event_listner('mouseup', function() {
